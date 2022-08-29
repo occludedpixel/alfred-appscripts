@@ -132,6 +132,8 @@
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -151,7 +153,7 @@
 				<key>runningsubtext</key>
 				<string>Loading scripts…</string>
 				<key>script</key>
-				<string>/usr/bin/python appscripts.py search "$1"</string>
+				<string>/usr/bin/python3 appscripts.py search "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -170,7 +172,7 @@
 			<key>uid</key>
 			<string>E91E210D-F78B-4CB1-8B44-9A857473689C</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -283,6 +285,11 @@ echo "$name"</string>
 			<integer>3</integer>
 		</dict>
 		<dict>
+			<key>config</key>
+			<dict>
+				<key>path</key>
+				<string></string>
+			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.revealfile</string>
 			<key>uid</key>
@@ -293,6 +300,8 @@ echo "$name"</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>availableviaurlhandler</key>
+				<false/>
 				<key>triggerid</key>
 				<string>settings</string>
 			</dict>
@@ -310,6 +319,8 @@ echo "$name"</string>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
@@ -329,7 +340,7 @@ echo "$name"</string>
 				<key>runningsubtext</key>
 				<string></string>
 				<key>script</key>
-				<string>/usr/bin/python appscripts.py config "$1"</string>
+				<string>/usr/bin/python3 appscripts.py config "$1"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -348,7 +359,7 @@ echo "$name"</string>
 			<key>uid</key>
 			<string>1BA77C1B-6BC1-4E2C-91B0-2455517B2092</string>
 			<key>version</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -379,7 +390,7 @@ echo "$name"</string>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>script</key>
-				<string>/usr/bin/python appscripts.py $1</string>
+				<string>/usr/bin/python3 appscripts.py $1</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -506,8 +517,12 @@ echo "$name"</string>
 			<integer>450</integer>
 		</dict>
 	</dict>
+	<key>userconfigurationconfig</key>
+	<array/>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
-	<string>3.2.0</string>
+	<string>3.2.0.1</string>
 	<key>webaddress</key>
 	<string>www.deanishe.net</string>
 </dict>

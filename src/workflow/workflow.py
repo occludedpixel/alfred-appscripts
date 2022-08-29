@@ -22,13 +22,16 @@ up your Python script to best utilise the :class:`Workflow` object.
 from __future__ import print_function, unicode_literals
 
 import binascii
-import cPickle
+
+# import cPickle
+import pickle as cPickle
 from copy import deepcopy
 import json
 import logging
 import logging.handlers
 import os
-import pickle
+
+# import pickle
 import plistlib
 import re
 import shutil
@@ -39,13 +42,18 @@ import time
 import unicodedata
 
 try:
+    unicode("")
+except NameError:
+    unicode = str
+
+try:
     import xml.etree.cElementTree as ET
 except ImportError:  # pragma: no cover
     import xml.etree.ElementTree as ET
 
 # imported to maintain API
-from util import AcquisitionError  # noqa: F401
-from util import (
+from .util import AcquisitionError  # noqa: F401
+from .util import (
     atomic_writer,
     LockFile,
     uninterruptible,
@@ -619,7 +627,8 @@ class JSONSerializer(object):
         :type file_obj: ``file`` object
 
         """
-        return json.dump(obj, file_obj, indent=2, encoding='utf-8')
+        # return json.dump(obj, file_obj, indent=2, encoding='utf-8')
+        return json.dump(obj, file_obj, indent=2)
 
 
 class CPickleSerializer(object):
@@ -661,48 +670,48 @@ class CPickleSerializer(object):
         return cPickle.dump(obj, file_obj, protocol=-1)
 
 
-class PickleSerializer(object):
-    """Wrapper around :mod:`pickle`. Sets ``protocol``.
-
-    .. versionadded:: 1.8
-
-    Use this serializer if you need to add custom pickling.
-
-    """
-
-    @classmethod
-    def load(cls, file_obj):
-        """Load serialized object from open pickle file.
-
-        .. versionadded:: 1.8
-
-        :param file_obj: file handle
-        :type file_obj: ``file`` object
-        :returns: object loaded from pickle file
-        :rtype: object
-
-        """
-        return pickle.load(file_obj)
-
-    @classmethod
-    def dump(cls, obj, file_obj):
-        """Serialize object ``obj`` to open pickle file.
-
-        .. versionadded:: 1.8
-
-        :param obj: Python object to serialize
-        :type obj: Python object
-        :param file_obj: file handle
-        :type file_obj: ``file`` object
-
-        """
-        return pickle.dump(obj, file_obj, protocol=-1)
+# class PickleSerializer(object):
+#     """Wrapper around :mod:`pickle`. Sets ``protocol``.
+#
+#     .. versionadded:: 1.8
+#
+#     Use this serializer if you need to add custom pickling.
+#
+#     """
+#
+#     @classmethod
+#     def load(cls, file_obj):
+#         """Load serialized object from open pickle file.
+#
+#         .. versionadded:: 1.8
+#
+#         :param file_obj: file handle
+#         :type file_obj: ``file`` object
+#         :returns: object loaded from pickle file
+#         :rtype: object
+#
+#         """
+#         return pickle.load(file_obj)
+#
+#     @classmethod
+#     def dump(cls, obj, file_obj):
+#         """Serialize object ``obj`` to open pickle file.
+#
+#         .. versionadded:: 1.8
+#
+#         :param obj: Python object to serialize
+#         :type obj: Python object
+#         :param file_obj: file handle
+#         :type file_obj: ``file`` object
+#
+#         """
+#         return pickle.dump(obj, file_obj, protocol=-1)
 
 
 # Set up default manager and register built-in serializers
 manager = SerializerManager()
 manager.register('cpickle', CPickleSerializer)
-manager.register('pickle', PickleSerializer)
+# manager.register('pickle', PickleSerializer)
 manager.register('json', JSONSerializer)
 
 
@@ -858,9 +867,9 @@ class Settings(dict):
         data.update(self)
 
         with LockFile(self._filepath, 0.5):
-            with atomic_writer(self._filepath, 'wb') as fp:
-                json.dump(data, fp, sort_keys=True, indent=2,
-                          encoding='utf-8')
+            with atomic_writer(self._filepath, 'w') as fp:
+                # json.dump(data, fp, sort_keys=True, indent=2, encoding='utf-8')
+                json.dump(data, fp, sort_keys=True, indent=2)
 
     # dict methods
     def __setitem__(self, key, value):
@@ -1171,7 +1180,7 @@ class Workflow(object):
                 version = self.info.get('version')
 
             if version:
-                from update import Version
+                from .update import Version
                 version = Version(version)
 
             self._version = version
@@ -2245,7 +2254,7 @@ class Workflow(object):
 
             version = self.version
 
-        if isinstance(version, basestring):
+        if isinstance(version, str):
             from update import Version
             version = Version(version)
 
@@ -2324,11 +2333,11 @@ class Workflow(object):
             # version = self._update_settings['version']
             version = str(self.version)
 
-            from background import run_in_background
+            from .background import run_in_background
 
             # update.py is adjacent to this file
-            update_script = os.path.join(os.path.dirname(__file__),
-                                         b'update.py')
+            # update_script = os.path.join(os.path.dirname(__file__), b'update.py')
+            update_script = os.path.join(os.path.dirname(__file__), 'update.py')
 
             cmd = ['/usr/bin/python', update_script, 'check', repo, version]
 

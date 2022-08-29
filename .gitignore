@@ -85,3 +85,5 @@ target/
 Session.vim
 .netrwhist
 *~
+
+.DS_Store
