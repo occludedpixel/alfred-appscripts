@@ -522,7 +522,7 @@ echo "$name"</string>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>3.2.0.1</string>
+	<string>3.2.1-alpha</string>
 	<key>webaddress</key>
 	<string>www.deanishe.net</string>
 </dict>
